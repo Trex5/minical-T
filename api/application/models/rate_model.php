@@ -31,19 +31,18 @@ class Rate_model extends CI_Model {
 		}
 	}
 	
-	function update_rate($data) {	
-		
-		if ($rate_id != null) {
-			$this->db->where('rate_id', $data['rate_id']);
-		}
-		else
-		{
-			$this->db->where('rate_id', $data['rate_id']);
+        function update_rate($data) {
+
+                if (!isset($data['rate_id'])) {
+                        return false;
+                }
+
+                $this->db->where('rate_id', $data['rate_id']);
+
+                $this->db->update("rate", $data);
+                //echo $this->db->last_query();
+                return $this->db->affected_rows() > 0;
         }
-		
-		$this->db->update("rate", $data);
-		//echo $this->db->last_query();
-	}	
 	
 	function delete_rate($rate_id)
 	{
